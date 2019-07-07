@@ -8,7 +8,7 @@ var burger = require("../models/burger.js");
 
 //Setting up routes
 router.get("/", function(req, res) {
-    burger.all(function(data) {
+    burger.selectAll(function(data) {
         var hbsObject = {
             burgers: data
         };
@@ -17,4 +17,13 @@ router.get("/", function(req, res) {
     });
 });
 
+router.post("/burgers", function(req, res){
+    burger.insertOne([
+        "burger_name"
+    ], [ req.body.burger_name
+    ], function(result) {
+        res.redirect('/');
+    }
+    )
+})
 module.exports = router;
